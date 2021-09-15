@@ -1,6 +1,6 @@
 // variables
 var startButton = document.getElementById('start-btn')
-var button = document.getElementsByClassName('ans-btn')
+var ansButton = document.getElementsByClassName('ans-btn')
 var countdownEl = document.getElementById("countdown")
 var question = document.getElementById("question")
 var ansA = document.getElementById("ans-a")
@@ -8,7 +8,9 @@ var ansB = document.getElementById("ans-b")
 var ansC = document.getElementById("ans-c")
 var ansD = document.getElementById("ans-d")
 var timer;
+var score;
 var questionsContainerEl = document.getElementById('question-container')
+var questionIndex = 0;
 var questions = [
     {
         question: "what is love?",
@@ -49,10 +51,18 @@ function renderQuestion(index) {
 }
 
 function answerCheck(index) {
-    
+
+    questionIndex++;
+    renderQuestion(questionIndex)
+    console.log("lol")
 }
 
-renderQuestion(0)
+function questionCycle(params) {
+    for (let i = 0; i < questions.length; i++);
+
+    // renderQuestion(0)
+}
+
     
 // timer --
 function startTimer() {
@@ -72,7 +82,7 @@ function startTimer() {
         countdownEl.innerHTML = clock;
         
         // include finish array
-        if (time <=0) {
+        if (time <=0 ) {
             gameOver();
         }
         console.log({time})
@@ -84,10 +94,11 @@ function startGame() {
     startButton.classList.add('hide')
     questionsContainerEl.classList.remove('hide')
     startTimer()
-    button[0].addEventListener("click", gameOver)
-    button[1].addEventListener("click", gameOver)
-    button[2].addEventListener("click", gameOver)
-    button[3].addEventListener("click", gameOver)
+    renderQuestion(questionIndex)
+    // button[0].addEventListener("click", gameOver)
+    // button[1].addEventListener("click", gameOver)
+    // button[2].addEventListener("click", gameOver)
+    // button[3].addEventListener("click", gameOver)
 }
 
 
@@ -96,3 +107,7 @@ function startGame() {
 
 // Click events
 startButton.addEventListener("click", startGame)
+ansButton[0].addEventListener("click", answerCheck)
+ansButton[1].addEventListener("click", answerCheck)
+ansButton[2].addEventListener("click", answerCheck)
+ansButton[3].addEventListener("click", answerCheck)
