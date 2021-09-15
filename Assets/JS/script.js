@@ -7,9 +7,13 @@ var ansA = document.getElementById("ans-a")
 var ansB = document.getElementById("ans-b")
 var ansC = document.getElementById("ans-c")
 var ansD = document.getElementById("ans-d")
+var time = 60;
 var timer;
-var score;
+var score = 0;
 var questionsContainerEl = document.getElementById('question-container')
+var gameOverEl = document.getElementById('game-over')
+var yourScoreEl = document.getElementById("your-score")
+var userInitialsEl = document.getElementById('user-initials')
 var questionIndex = 0;
 var questions = [
     {
@@ -18,21 +22,42 @@ var questions = [
         b: "answer",        
         c: "don't hurt me",
         d: "answer",
-        correct: "c"
+        correct: "ans-c"
     },{
         question: "what is CSS?",
         a: "why?",
-        b: "answer",        
+        b: "lol not an answer",        
         c: "don't hurt me",
         d: "answer",
-        correct: "d"
+        correct: "ans-c"
     },{
         question: "what is love?",
         a: "what?",
         b: "answer",        
         c: "don't hurt me",
         d: "answer",
-        correct: "c"
+        correct: "ans-c"
+    },{
+        question: "what is love?",
+        a: "what?",
+        b: "answer",        
+        c: "don't hurt me",
+        d: "answer",
+        correct: "ans-c"
+    },{
+        question: "what is CSS?",
+        a: "why?",
+        b: "answer",        
+        c: "don't hurt me",
+        d: "answer",
+        correct: "ans-c"
+    },{
+        question: "what is love?",
+        a: "what?",
+        b: "answer",        
+        c: "don't hurt me",
+        d: "answer",
+        correct: "ans-c"
     }
 ]
 
@@ -40,6 +65,9 @@ var questions = [
 function gameOver(params) {
     clearInterval(timer)
     questionsContainerEl.classList.add('hide')
+    gameOverEl.classList.remove('hide')
+    yourScoreEl.innerHTML = `Your score is ${score}!`;
+    
 }
 
 function renderQuestion(index) {
@@ -50,16 +78,23 @@ function renderQuestion(index) {
     ansD.innerHTML = questions[index].d
 }
 
-function answerCheck(index) {
-
+function answerCheck(event) {
+    if (event.target.id == questions[questionIndex].correct) {
+        score++
+    } else { time -= 10;
+    }
     questionIndex++;
-    renderQuestion(questionIndex)
-    console.log("lol")
+    if (questionIndex < questions.length) {
+        renderQuestion(questionIndex)
+    }else {
+        gameOver()
+    }
+    console.log({time})
 }
 
 function questionCycle(params) {
     for (let i = 0; i < questions.length; i++);
-
+    
     // renderQuestion(0)
 }
 
@@ -67,7 +102,6 @@ function questionCycle(params) {
 // timer --
 function startTimer() {
     
-    var time = 60;
     timer = setInterval(() => {
         time--;
         var minutes = Math.floor(time / 60);
@@ -101,9 +135,9 @@ function startGame() {
     // button[3].addEventListener("click", gameOver)
 }
 
-
-
 // local storage
+    localStorage.setItem(userInitialsEl.value, score)
+
 
 // Click events
 startButton.addEventListener("click", startGame)
