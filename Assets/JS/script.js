@@ -16,6 +16,9 @@ var yourScoreEl = document.getElementById("your-score")
 var userInitialsEl = document.getElementById('user-initials')
 var submitEl = document.getElementById('submit')
 var highScoresEl = document.getElementById('highscores')
+var clearBtn = document.getElementById('clear-btn')
+var returnBtn = document.getElementById('return-btn')
+var scoreList = document.getElementById('score-list')
 var questionIndex = 0;
 var questions = [
     {
@@ -64,11 +67,31 @@ var questions = [
 ]
 
 // functions
+function clearScore(params) {
+    localStorage.clear()
+
+    renderScores()
+}
+
+function renderScores(params) {
+    scoreList.innerHTML = ''
+    if (localStorage.length <= 0) {
+        listedScoreEl.innerHTML == '';
+    }
+    var listedScore = localStorage.getItem(userInitialsEl.value)
+    var listedScoreEl = document.createElement("p")
+    listedScoreEl.innerHTML =  `${userInitialsEl.value} ${listedScore}`
+
+    highScoresEl.children[2].appendChild(listedScoreEl)
+
+}
+
 function submitScores(params) {
     localStorage.setItem(userInitialsEl.value, score)
     gameOverEl.classList.add('hide')
-    highScoresEl.classList.remove('hide')
-    
+    highScoresEl.classList.remove('hide')    
+    renderScores()
+    userInitialsEl.value = '';
 }
 
 function gameOver(params) {
@@ -110,7 +133,7 @@ function questionCycle(params) {
     
 // timer --
 function startTimer() {
-    
+    time = 60;
     timer = setInterval(() => {
         time--;
         var minutes = Math.floor(time / 60);
@@ -132,6 +155,11 @@ function startTimer() {
     }, 1000);
 }
 
+function restart(params) {
+    questionIndex = 0;
+    highScoresEl.classList.add('hide')
+    startButton.classList.remove('hide')
+}
 
 function startGame() {
     startButton.classList.add('hide')
@@ -155,3 +183,5 @@ ansButton[1].addEventListener("click", answerCheck)
 ansButton[2].addEventListener("click", answerCheck)
 ansButton[3].addEventListener("click", answerCheck)
 submitEl.addEventListener('click', submitScores)
+clearBtn.addEventListener('click', clearScore)
+returnBtn.addEventListener('click', restart)
