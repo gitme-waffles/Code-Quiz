@@ -2,7 +2,11 @@
 var startButton = document.getElementById('start-btn')
 var button = document.getElementsByClassName('ans-btn')
 var countdownEl = document.getElementById("countdown")
-var d = true;
+var question = document.getElementById("question")
+var ansA = document.getElementById("ans-a")
+var ansB = document.getElementById("ans-b")
+var ansC = document.getElementById("ans-c")
+var ansD = document.getElementById("ans-d")
 var timer;
 var questionsContainerEl = document.getElementById('question-container')
 var questions = [
@@ -36,18 +40,24 @@ function gameOver(params) {
     questionsContainerEl.classList.add('hide')
 }
 
-function renderQuestion(params) {
+function renderQuestion(index) {
+    question.innerHTML = questions[index].question
+    ansA.innerHTML = questions[index].a
+    ansB.innerHTML = questions[index].b
+    ansC.innerHTML = questions[index].c
+    ansD.innerHTML = questions[index].d
+}
+
+function answerCheck(index) {
     
 }
 
-function answerCheck(params) {
+renderQuestion(0)
     
-}
-
 // timer --
 function startTimer() {
     
-    var time = 12;
+    var time = 60;
     timer = setInterval(() => {
         time--;
         var minutes = Math.floor(time / 60);
