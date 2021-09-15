@@ -14,6 +14,8 @@ var questionsContainerEl = document.getElementById('question-container')
 var gameOverEl = document.getElementById('game-over')
 var yourScoreEl = document.getElementById("your-score")
 var userInitialsEl = document.getElementById('user-initials')
+var submitEl = document.getElementById('submit')
+var highScoresEl = document.getElementById('highscores')
 var questionIndex = 0;
 var questions = [
     {
@@ -62,6 +64,13 @@ var questions = [
 ]
 
 // functions
+function submitScores(params) {
+    localStorage.setItem(userInitialsEl.value, score)
+    gameOverEl.classList.add('hide')
+    highScoresEl.classList.remove('hide')
+    
+}
+
 function gameOver(params) {
     clearInterval(timer)
     questionsContainerEl.classList.add('hide')
@@ -136,7 +145,7 @@ function startGame() {
 }
 
 // local storage
-    localStorage.setItem(userInitialsEl.value, score)
+    
 
 
 // Click events
@@ -145,3 +154,4 @@ ansButton[0].addEventListener("click", answerCheck)
 ansButton[1].addEventListener("click", answerCheck)
 ansButton[2].addEventListener("click", answerCheck)
 ansButton[3].addEventListener("click", answerCheck)
+submitEl.addEventListener('click', submitScores)
