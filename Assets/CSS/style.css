@@ -15,7 +15,7 @@ body {
 }
 
 
-.container {
+.card {
     display: flex;
     flex-direction: column;
     background-color: rgb(196, 173, 143);
