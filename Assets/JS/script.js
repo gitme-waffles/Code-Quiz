@@ -190,11 +190,6 @@ function answerCheck(event) {
     }
 }
 
-function questionCycle(params) {
-    for (let i = 0; i < questions.length; i++);    
-}
-    
-// timer --
 function startTimer() {
     time = 60;
     timer = setInterval(() => {
