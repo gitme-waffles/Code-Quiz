@@ -15,6 +15,8 @@ var gameOverEl = document.getElementById('game-over')
 var yourScoreEl = document.getElementById("your-score")
 var userInitialsEl = document.getElementById('user-initials')
 var submitEl = document.getElementById('submit')
+var scoreEntries = 'list';
+var scoreArray = [];
 var highScoresEl = document.getElementById('highscores')
 var clearBtn = document.getElementById('clear-btn')
 var returnBtn = document.getElementById('return-btn')
@@ -22,19 +24,19 @@ var scoreList = document.getElementById('score-list')
 var questionIndex = 0;
 var questions = [
     {
-        question: "what is love?",
+        question: "What does HTML stand for?",
         a: "what?",
         b: "answer",        
-        c: "don't hurt me",
+        c: "HyperText Markup Language",
         d: "answer",
         correct: "ans-c"
     },{
         question: "what is CSS?",
-        a: "why?",
-        b: "lol not an answer",        
-        c: "don't hurt me",
-        d: "answer",
-        correct: "ans-c"
+        a: "Colored Style Script",
+        b: "Consolidated Style Sheet",        
+        c: "Cascading Style Script",
+        d: "Cascading Style Sheets",
+        correct: "ans-d"
     },{
         question: "what is love?",
         a: "what?",
@@ -67,27 +69,56 @@ var questions = [
 ]
 
 // functions
-function clearScore(params) {
-    localStorage.clear()
-
-    renderScores()
-}
-
+// get 
 function renderScores(params) {
     scoreList.innerHTML = ''
     if (localStorage.length <= 0) {
         listedScoreEl.innerHTML == '';
+    } else {
+        for (i =0; i < localStorage.length; i++) {
+            console.log(localStorage[i])
+            var listedScore = localStorage.getItem(userInitialsEl.value)
+            var listedScoreEl = document.createElement("p")
+            listedScoreEl.innerHTML =  `${userInitialsEl.value} ${listedScore}`
+    
+    highScoresEl.children[2].appendChild(listedScoreEl)
+        }
     }
     var listedScore = localStorage.getItem(userInitialsEl.value)
     var listedScoreEl = document.createElement("p")
     listedScoreEl.innerHTML =  `${userInitialsEl.value} ${listedScore}`
-
+    
     highScoresEl.children[2].appendChild(listedScoreEl)
-
+    
 }
 
+function clearScore(params) {
+    localStorage.clear()
+    // change line above to remove the item
+    renderScores()
+}
+
+// input => userInitialsEl
+// render highscores in scoreList
+// initials and score in an object *
+// add objects in array
+// array = value
 function submitScores(params) {
-    localStorage.setItem(userInitialsEl.value, score)
+    // userInitialEl + score => object
+    var scoreObject = {
+        initial: userInitialsEl.value,
+        score: score
+    }
+
+    var storedScoreArray = JSON.parse(localStorage.getItem(scoreEntries))
+
+    if (storedScoreArray == null) {
+        storedScoreArray = scoreArray;
+    }
+    
+    storedScoreArray.push(scoreObject)
+    localStorage.setItem(scoreEntries, JSON.stringify(scoreArray))
+
     gameOverEl.classList.add('hide')
     highScoresEl.classList.remove('hide')    
     renderScores()
@@ -151,7 +182,6 @@ function startTimer() {
         if (time <=0 ) {
             gameOver();
         }
-        console.log({time})
     }, 1000);
 }
 
