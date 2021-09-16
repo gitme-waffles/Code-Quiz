@@ -4,7 +4,7 @@ var startButton = document.getElementById('start-btn')
 var ansButton = document.getElementsByClassName('ans-btn')
 var clearBtn = document.getElementById('clear-btn')
 var returnBtn = document.getElementById('return-btn')
-var submitEl = document.getElementById('submit')
+var submitBtn = document.getElementById('submit')
 
 // Cards
 var questionsContainerEl = document.getElementById('question-container')
@@ -210,7 +210,6 @@ function startTimer() {
         }
         countdownEl.innerHTML = clock;
         
-        // include finish array
         if (time <=0 ) {
             gameOver();
         }
@@ -228,20 +227,15 @@ function startGame() {
     questionsContainerEl.classList.remove('hide')
     startTimer()
     renderQuestion(questionIndex)
-    // button[0].addEventListener("click", gameOver)
-    // button[1].addEventListener("click", gameOver)
-    // button[2].addEventListener("click", gameOver)
-    // button[3].addEventListener("click", gameOver)
 }
 
-// local storage
- 
-// Click events
+
+// Event Listeners -> Click events
 startButton.addEventListener("click", startGame)
 ansButton[0].addEventListener("click", answerCheck)
 ansButton[1].addEventListener("click", answerCheck)
 ansButton[2].addEventListener("click", answerCheck)
 ansButton[3].addEventListener("click", answerCheck)
-submitEl.addEventListener('click', submitScores)
+submitBtn.addEventListener('click', submitScores)
 clearBtn.addEventListener('click', clearScore)
 returnBtn.addEventListener('click', restart)
