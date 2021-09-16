@@ -1,25 +1,31 @@
-// variables
+//*** Variables ***
+// Buttons
 var startButton = document.getElementById('start-btn')
 var ansButton = document.getElementsByClassName('ans-btn')
+var clearBtn = document.getElementById('clear-btn')
+var returnBtn = document.getElementById('return-btn')
+var submitEl = document.getElementById('submit')
+
 var countdownEl = document.getElementById("countdown")
+
 var question = document.getElementById("question")
 var ansA = document.getElementById("ans-a")
 var ansB = document.getElementById("ans-b")
 var ansC = document.getElementById("ans-c")
 var ansD = document.getElementById("ans-d")
+// Timer
 var time = 60;
 var timer;
+// Score
 var score = 0;
+// Cards
 var questionsContainerEl = document.getElementById('question-container')
 var gameOverEl = document.getElementById('game-over')
 var yourScoreEl = document.getElementById("your-score")
 var userInitialsEl = document.getElementById('user-initials')
-var submitEl = document.getElementById('submit')
 var scoreEntries = 'list';
 var scoreArray = [];
 var highScoresEl = document.getElementById('highscores')
-var clearBtn = document.getElementById('clear-btn')
-var returnBtn = document.getElementById('return-btn')
 var scoreList = document.getElementById('score-list')
 var questionIndex = 0;
 var questions = [
@@ -30,35 +36,40 @@ var questions = [
         c: "HyperText Markup Language",
         d: "answer",
         correct: "ans-c"
-    },{
+    },
+    {
         question: "what is CSS?",
         a: "Colored Style Script",
         b: "Consolidated Style Sheet",        
         c: "Cascading Style Script",
         d: "Cascading Style Sheets",
         correct: "ans-d"
-    },{
+    },
+    {
         question: "what is love?",
         a: "what?",
         b: "answer",        
         c: "don't hurt me",
         d: "answer",
         correct: "ans-c"
-    },{
+    },
+    {
         question: "what is love?",
         a: "what?",
         b: "answer",        
         c: "don't hurt me",
         d: "answer",
         correct: "ans-c"
-    },{
+    },
+    {
         question: "what is CSS?",
         a: "why?",
         b: "answer",        
         c: "don't hurt me",
         d: "answer",
         correct: "ans-c"
-    },{
+    },
+    {
         question: "what is love?",
         a: "what?",
         b: "answer",        
@@ -69,33 +80,49 @@ var questions = [
 ]
 
 // functions
-// get 
-function renderScores(params) {
+// render length of array with for loop append
+// render to HTML El 
+function renderScores(storedScoreArray) {
     scoreList.innerHTML = ''
-    if (localStorage.length <= 0) {
-        listedScoreEl.innerHTML == '';
-    } else {
-        for (i =0; i < localStorage.length; i++) {
-            console.log(localStorage[i])
-            var listedScore = localStorage.getItem(userInitialsEl.value)
-            var listedScoreEl = document.createElement("p")
-            listedScoreEl.innerHTML =  `${userInitialsEl.value} ${listedScore}`
-    
-    highScoresEl.children[2].appendChild(listedScoreEl)
-        }
+    for (i = 0; i < storedScoreArray.length; i++) {
+        var storedObj = storedScoreArray[i];
+
+        var li = document.createElement('li');
+        // li.setAttribute('data-index', i);
+
+        li.innerHTML =  `${storedObj.initials} ${storedObj.score}`;
+        scoreList.appendChild(li);
     }
-    var listedScore = localStorage.getItem(userInitialsEl.value)
-    var listedScoreEl = document.createElement("p")
-    listedScoreEl.innerHTML =  `${userInitialsEl.value} ${listedScore}`
+    // var returnedArray = JSON.parse(localStorage.getItem(scoreEntries))
+
+
+
+
     
-    highScoresEl.children[2].appendChild(listedScoreEl)
+    // if (localStorage.length <= 0) {
+    //     listedScoreEl.innerHTML == '';
+    // } else {
+    //     for (i =0; i < localStorage.length; i++) {
+    //         console.log(localStorage[i])
+    //         var listedScore = localStorage.getItem(userInitialsEl.value)
+    //         var listedScoreEl = document.createElement("p")
+    //         listedScoreEl.innerHTML =  `${userInitialsEl.value} ${listedScore}`
     
+    //         highScoresEl.children[2].appendChild(listedScoreEl)
+    //     }
+    // }
+    // var listedScore = localStorage.getItem(userInitialsEl.value)
+    // var listedScoreEl = document.createElement("p")
+    // listedScoreEl.innerHTML =  `${userInitialsEl.value} ${listedScore}`
+    
+    // highScoresEl.children[2].appendChild(listedScoreEl)
 }
 
 function clearScore(params) {
-    localStorage.clear()
+    localStorage.removeItem(scoreEntries)
     // change line above to remove the item
-    renderScores()
+    scoreList.remove;
+    renderScores(scoreArray)
 }
 
 // input => userInitialsEl
@@ -104,9 +131,9 @@ function clearScore(params) {
 // add objects in array
 // array = value
 function submitScores(params) {
-    // userInitialEl + score => object
+    // userInitialEl + score => object => array => adds to existing local storage
     var scoreObject = {
-        initial: userInitialsEl.value,
+        initials: userInitialsEl.value,
         score: score
     }
 
@@ -115,13 +142,14 @@ function submitScores(params) {
     if (storedScoreArray == null) {
         storedScoreArray = scoreArray;
     }
-    
+
+    console.log({storedScoreArray})
     storedScoreArray.push(scoreObject)
-    localStorage.setItem(scoreEntries, JSON.stringify(scoreArray))
+    localStorage.setItem(scoreEntries, JSON.stringify(storedScoreArray))
 
     gameOverEl.classList.add('hide')
     highScoresEl.classList.remove('hide')    
-    renderScores()
+    renderScores(storedScoreArray)
     userInitialsEl.value = '';
 }
 
@@ -130,7 +158,6 @@ function gameOver(params) {
     questionsContainerEl.classList.add('hide')
     gameOverEl.classList.remove('hide')
     yourScoreEl.innerHTML = `Your score is ${score}!`;
-    
 }
 
 function renderQuestion(index) {
@@ -144,15 +171,15 @@ function renderQuestion(index) {
 function answerCheck(event) {
     if (event.target.id == questions[questionIndex].correct) {
         score++
-    } else { time -= 10;
+    } else {
+        time -= 10;
     }
     questionIndex++;
     if (questionIndex < questions.length) {
         renderQuestion(questionIndex)
-    }else {
+    } else {
         gameOver()
     }
-    console.log({time})
 }
 
 function questionCycle(params) {
@@ -160,7 +187,6 @@ function questionCycle(params) {
     
     // renderQuestion(0)
 }
-
     
 // timer --
 function startTimer() {
@@ -203,9 +229,7 @@ function startGame() {
 }
 
 // local storage
-    
-
-
+ 
 // Click events
 startButton.addEventListener("click", startGame)
 ansButton[0].addEventListener("click", answerCheck)
