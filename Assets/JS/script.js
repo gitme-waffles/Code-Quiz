@@ -90,47 +90,23 @@ var countdownEl = document.getElementById("countdown")
 // functions
 // render length of array with for loop append
 // render to HTML El 
-function renderScores(storedScoreArray) {
+function renderScores(storedScoreArray2) {
+    console.log({storedScoreArray2})
     scoreList.innerHTML = ''
-    for (i = 0; i < storedScoreArray.length; i++) {
-        var storedObj = storedScoreArray[i];
-
+    for (i = 0; i < storedScoreArray2.length; i++) {
+        var storedObj = storedScoreArray2[i];
+        
         var li = document.createElement('li');
         // li.setAttribute('data-index', i);
-
+        
         li.innerHTML =  `${storedObj.initials} ${storedObj.score}`;
         scoreList.appendChild(li);
     }
-    // var returnedArray = JSON.parse(localStorage.getItem(scoreEntries))
-
-
-
-
-    
-    // if (localStorage.length <= 0) {
-    //     listedScoreEl.innerHTML == '';
-    // } else {
-    //     for (i =0; i < localStorage.length; i++) {
-    //         console.log(localStorage[i])
-    //         var listedScore = localStorage.getItem(userInitialsEl.value)
-    //         var listedScoreEl = document.createElement("p")
-    //         listedScoreEl.innerHTML =  `${userInitialsEl.value} ${listedScore}`
-    
-    //         highScoresEl.children[2].appendChild(listedScoreEl)
-    //     }
-    // }
-    // var listedScore = localStorage.getItem(userInitialsEl.value)
-    // var listedScoreEl = document.createElement("p")
-    // listedScoreEl.innerHTML =  `${userInitialsEl.value} ${listedScore}`
-    
-    // highScoresEl.children[2].appendChild(listedScoreEl)
 }
 
 function clearScore() {
     localStorage.removeItem(scoreEntries)
-    // change line above to remove the item
-    scoreList.remove;
-    renderScores(scoreArray)
+    renderScores([])
 }
 
 // input => userInitialsEl
@@ -148,10 +124,9 @@ function submitScores() {
     var storedScoreArray = JSON.parse(localStorage.getItem(scoreEntries))
 
     if (storedScoreArray == null) {
-        storedScoreArray = scoreArray;
-    }
+        storedScoreArray = [];
+    } 
 
-    console.log({storedScoreArray})
     storedScoreArray.push(scoreObject)
     localStorage.setItem(scoreEntries, JSON.stringify(storedScoreArray))
 
