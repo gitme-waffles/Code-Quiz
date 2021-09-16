@@ -170,10 +170,10 @@ function gameOver() {
 
 function renderQuestion(index) {
     question.innerHTML = questions[index].question
-    ansA.innerHTML = questions[index].a
-    ansB.innerHTML = questions[index].b
-    ansC.innerHTML = questions[index].c
-    ansD.innerHTML = questions[index].d
+    ansA.textContent = questions[index].a
+    ansB.textContent = questions[index].b
+    ansC.textContent = questions[index].c
+    ansD.textContent = questions[index].d
 }
 
 function answerCheck(event) {
@@ -213,6 +213,7 @@ function startTimer() {
 
 function restart() {
     questionIndex = 0;
+    score = 0;
     highScoresEl.classList.add('hide')
     startButton.classList.remove('hide')
 }
