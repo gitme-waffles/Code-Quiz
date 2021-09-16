@@ -1,4 +1,5 @@
 //*** Variables ***
+
 // Buttons
 var startButton = document.getElementById('start-btn')
 var ansButton = document.getElementsByClassName('ans-btn')
@@ -10,6 +11,7 @@ var submitBtn = document.getElementById('submit')
 var questionsContainerEl = document.getElementById('question-container')
 var gameOverEl = document.getElementById('game-over')
 var highScoresEl = document.getElementById('highscores')
+
 // Display
 var yourScoreEl = document.getElementById("your-score")
 var scoreList = document.getElementById('score-list')
@@ -24,14 +26,14 @@ var questionIndex = 0;
 var questions = [
     {
         question: "What does HTML stand for?",
-        a: "what?",
-        b: "answer",        
-        c: "HyperText Markup Language",
-        d: "answer",
+        a: "Hyper Training Marking Language",
+        b: "Hyper Text Marketing Language",        
+        c: "Hyper Text Markup Language",
+        d: "Hyper Text Markup Leveler",
         correct: "ans-c"
     },
     {
-        question: "what is CSS?",
+        question: "What is CSS?",
         a: "Colored Style Script",
         b: "Consolidated Style Sheet",        
         c: "Cascading Style Script",
@@ -39,36 +41,36 @@ var questions = [
         correct: "ans-d"
     },
     {
-        question: "what is love?",
-        a: "what?",
-        b: "answer",        
-        c: "don't hurt me",
-        d: "answer",
+        question: "When was the initial release of HTML?",
+        a: "1976",
+        b: "1984",        
+        c: "1993",
+        d: "1999",
         correct: "ans-c"
     },
     {
-        question: "what is love?",
-        a: "what?",
-        b: "answer",        
-        c: "don't hurt me",
-        d: "answer",
+        question: "Which of the following is a funcion?",
+        a: "function fun[]",
+        b: "fun function()",        
+        c: "function function{}",
+        d: "function funcion()",
+        correct: "ans-d"
+    },
+    {
+        question: "What does the acronym WWW stand for?",
+        a: "Wide Web World",
+        b: "Wide World Web",
+        c: "World Wide Web",
+        d: "Web Wide World",
         correct: "ans-c"
     },
     {
-        question: "what is CSS?",
-        a: "why?",
-        b: "answer",        
-        c: "don't hurt me",
-        d: "answer",
-        correct: "ans-c"
-    },
-    {
-        question: "what is love?",
-        a: "what?",
-        b: "answer",        
-        c: "don't hurt me",
-        d: "answer",
-        correct: "ans-c"
+        question: "Which HTML element do we put Javascript in?",
+        a: `<script src="xxx.js">`,
+        b: `<link src="xxx.js">`,
+        c: `<script href="xxx.js">`,
+        d: `<link href="xxx.js">`,
+        correct: "ans-a"
     }
 ]
 // Question Display
@@ -124,7 +126,7 @@ function renderScores(storedScoreArray) {
     // highScoresEl.children[2].appendChild(listedScoreEl)
 }
 
-function clearScore(params) {
+function clearScore() {
     localStorage.removeItem(scoreEntries)
     // change line above to remove the item
     scoreList.remove;
@@ -136,7 +138,7 @@ function clearScore(params) {
 // initials and score in an object *
 // add objects in array
 // array = value
-function submitScores(params) {
+function submitScores() {
     // userInitialEl + score => object => array => adds to existing local storage
     var scoreObject = {
         initials: userInitialsEl.value,
@@ -159,7 +161,7 @@ function submitScores(params) {
     userInitialsEl.value = '';
 }
 
-function gameOver(params) {
+function gameOver() {
     clearInterval(timer)
     questionsContainerEl.classList.add('hide')
     gameOverEl.classList.remove('hide')
@@ -189,9 +191,7 @@ function answerCheck(event) {
 }
 
 function questionCycle(params) {
-    for (let i = 0; i < questions.length; i++);
-    
-    // renderQuestion(0)
+    for (let i = 0; i < questions.length; i++);    
 }
     
 // timer --
@@ -216,7 +216,7 @@ function startTimer() {
     }, 1000);
 }
 
-function restart(params) {
+function restart() {
     questionIndex = 0;
     highScoresEl.classList.add('hide')
     startButton.classList.remove('hide')
@@ -228,7 +228,6 @@ function startGame() {
     startTimer()
     renderQuestion(questionIndex)
 }
-
 
 // Event Listeners -> Click events
 startButton.addEventListener("click", startGame)
