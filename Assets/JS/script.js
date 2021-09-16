@@ -49,7 +49,7 @@ var questions = [
         correct: "ans-c"
     },
     {
-        question: "Which of the following is a funcion?",
+        question: "Which of the following is a function?",
         a: "function fun[]",
         b: "fun function()",        
         c: "function function{}",
