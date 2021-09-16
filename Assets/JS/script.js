@@ -97,9 +97,8 @@ function renderScores(storedScoreArray2) {
         var storedObj = storedScoreArray2[i];
         
         var li = document.createElement('li');
-        // li.setAttribute('data-index', i);
         
-        li.innerHTML =  `${storedObj.initials} ${storedObj.score}`;
+        li.innerHTML =  `${storedObj.initials}     -     ${storedObj.score}`;
         scoreList.appendChild(li);
     }
 }
@@ -138,6 +137,7 @@ function submitScores() {
 
 function gameOver() {
     clearInterval(timer)
+    countdownEl.textContent = '1:00';
     questionsContainerEl.classList.add('hide')
     gameOverEl.classList.remove('hide')
     yourScoreEl.innerHTML = `Your score is ${score}!`;
@@ -153,10 +153,17 @@ function renderQuestion(index) {
 
 function answerCheck(event) {
     if (event.target.id == questions[questionIndex].correct) {
-        score++
+        score++;
+        document.querySelector("body").setAttribute("style", "background-color: green");
     } else {
         time -= 10;
+        document.querySelector("body").setAttribute("style", "background-color: red");
+
+        
     }
+    // document.querySelector("body").setAttribute("style", "background-color: grey");
+    setTimeout(function(){document.querySelector("body").setAttribute("style", "background-color: grey")}, 250)
+
     questionIndex++;
     if (questionIndex < questions.length) {
         renderQuestion(questionIndex)
