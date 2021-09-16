@@ -6,27 +6,20 @@ var clearBtn = document.getElementById('clear-btn')
 var returnBtn = document.getElementById('return-btn')
 var submitEl = document.getElementById('submit')
 
-var countdownEl = document.getElementById("countdown")
-
-var question = document.getElementById("question")
-var ansA = document.getElementById("ans-a")
-var ansB = document.getElementById("ans-b")
-var ansC = document.getElementById("ans-c")
-var ansD = document.getElementById("ans-d")
-// Timer
-var time = 60;
-var timer;
-// Score
-var score = 0;
 // Cards
 var questionsContainerEl = document.getElementById('question-container')
 var gameOverEl = document.getElementById('game-over')
+var highScoresEl = document.getElementById('highscores')
+// Display
 var yourScoreEl = document.getElementById("your-score")
+var scoreList = document.getElementById('score-list')
+
+// Local Storage
 var userInitialsEl = document.getElementById('user-initials')
 var scoreEntries = 'list';
 var scoreArray = [];
-var highScoresEl = document.getElementById('highscores')
-var scoreList = document.getElementById('score-list')
+
+// Questions
 var questionIndex = 0;
 var questions = [
     {
@@ -78,6 +71,19 @@ var questions = [
         correct: "ans-c"
     }
 ]
+// Question Display
+var question = document.getElementById("question")
+var ansA = document.getElementById("ans-a")
+var ansB = document.getElementById("ans-b")
+var ansC = document.getElementById("ans-c")
+var ansD = document.getElementById("ans-d")
+
+// Score
+var score = 0;
+// Timer
+var time = 60;
+var timer;
+var countdownEl = document.getElementById("countdown")
 
 // functions
 // render length of array with for loop append
