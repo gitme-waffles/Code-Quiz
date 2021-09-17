@@ -51,6 +51,7 @@ body {
     padding: 20px;
 
 }
+
 .control {
     align-self: center;
     justify-self: center;
@@ -67,10 +68,12 @@ h2 {
     text-align: center;
 }
 
+/* hides card containers when not needed */
 .hide {
     display: none;
 }
 
+/* removes bullet points from high score list */
 li {
     list-style-type: none;
 }

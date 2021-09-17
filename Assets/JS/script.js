@@ -88,8 +88,7 @@ var timer;
 var countdownEl = document.getElementById("countdown")
 
 // functions
-// render length of array with for loop append
-// render to HTML El 
+
 function renderScores(storedScoreArray2) {
     console.log({storedScoreArray2})
     scoreList.innerHTML = ''
@@ -108,11 +107,6 @@ function clearScore() {
     renderScores([])
 }
 
-// input => userInitialsEl
-// render highscores in scoreList
-// initials and score in an object *
-// add objects in array
-// array = value
 function submitScores() {
     // userInitialEl + score => object => array => adds to existing local storage
     var scoreObject = {
@@ -157,11 +151,8 @@ function answerCheck(event) {
         document.querySelector("body").setAttribute("style", "background-color: green");
     } else {
         time -= 10;
-        document.querySelector("body").setAttribute("style", "background-color: red");
-
-        
+        document.querySelector("body").setAttribute("style", "background-color: red");        
     }
-    // document.querySelector("body").setAttribute("style", "background-color: grey");
     setTimeout(function(){document.querySelector("body").setAttribute("style", "background-color: grey")}, 250)
 
     questionIndex++;
